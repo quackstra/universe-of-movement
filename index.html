@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Universe of Movement — How fast is the human race moving?</title>
+<meta name="description" content="Measuring the aggregate speed of the human race. AHV ≈ 3.86 billion person-mph · the average human moves at ~0.48 mph · humanity's odometer ≈ 33.8 trillion person-miles per year.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0e1a;--card:#111827;--card-border:#1e293b;
+  --road:#4C78A8;--air:#F58518;--active:#B279A2;--rail:#54A24B;--water:#72B7B2;--space:#9aa0aa;
+  --accent:#F58518;--green:#10b981;--amber:#f59e0b;--red:#ef4444;
+  --text:#f9fafb;--muted:#9ca3af;
+  --font:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;--mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+.container{max-width:1180px;margin:0 auto;padding:0 24px}
+.mono{font-family:var(--mono)}.muted{color:var(--muted)}
+section{padding:76px 0;opacity:0;transform:translateY(28px);transition:opacity .7s,transform .7s}
+section.visible{opacity:1;transform:none}
+.card{background:var(--card);border:1px solid var(--card-border);border-radius:16px;padding:28px}
+h2{font-size:2rem;font-weight:800;margin-bottom:8px;letter-spacing:-.02em}
+.section-subtitle{color:var(--muted);font-size:1.05rem;margin-bottom:36px;max-width:680px}
+/* hero */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;opacity:1!important;transform:none!important}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+  background:radial-gradient(ellipse at 50% 30%,rgba(245,133,24,.08),transparent 60%),radial-gradient(ellipse at 80% 70%,rgba(76,120,168,.07),transparent 50%);
+  pointer-events:none;animation:glow 12s ease-in-out infinite alternate}
+@keyframes glow{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-3%,2%) scale(1.05)}}
+.hero-badge{display:inline-flex;gap:8px;align-items:center;background:rgba(245,133,24,.12);border:1px solid rgba(245,133,24,.25);border-radius:999px;padding:6px 18px;font-size:.85rem;color:var(--accent);margin-bottom:28px}
+.hero h1{font-size:clamp(3rem,7vw,5.3rem);font-weight:900;letter-spacing:-.03em;line-height:1.05;margin-bottom:14px;position:relative}
+.hero .tagline{font-size:clamp(1.05rem,2.2vw,1.35rem);color:var(--muted);margin-bottom:52px;position:relative}
+.hero-numbers{display:flex;flex-wrap:wrap;gap:48px;justify-content:center;position:relative}
+.hero-stat .big-number{font-family:var(--mono);font-size:clamp(2.6rem,5.5vw,4rem);font-weight:700;line-height:1.1;margin-bottom:4px}
+.big-number.ahv{color:var(--accent)}.big-number.vbar{color:var(--road)}.big-number.odo{color:var(--rail)}
+.hero-stat .unit{font-size:clamp(.95rem,2vw,1.2rem);color:var(--muted);font-family:var(--mono)}
+.hero-stat .sub{font-size:.88rem;color:var(--muted);margin-top:4px}
+.hero-explain{max-width:640px;margin-top:44px;position:relative}
+.hero-explain .label{font-weight:700;color:var(--accent);font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.hero-explain p{color:var(--muted);font-size:.95rem;line-height:1.7}
+.scroll-cue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);animation:bounce 2s infinite;color:var(--muted);font-size:1.4rem}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0);opacity:.5}50%{transform:translateX(-50%) translateY(10px);opacity:1}}
+/* table */
+.table-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--card-border)}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+thead th{background:rgba(255,255,255,.04);padding:14px 16px;text-align:left;font-weight:600;color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+tbody tr{border-top:1px solid var(--card-border)}tbody tr:hover{background:rgba(255,255,255,.03)}
+tbody td{padding:12px 16px;white-space:nowrap}
+.td-name{font-weight:600}.td-number{font-family:var(--mono);font-weight:500}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;vertical-align:middle}
+.conf{font-family:var(--mono);font-size:.78rem;font-weight:600;padding:2px 8px;border-radius:4px}
+.conf-high{background:rgba(16,185,129,.15);color:var(--green)}
+.conf-mid{background:rgba(245,158,11,.15);color:var(--amber)}
+.conf-low{background:rgba(239,68,68,.15);color:var(--red)}
+.bar-cell{position:relative;min-width:120px}
+.bar-fill{position:absolute;left:0;top:50%;transform:translateY(-50%);height:8px;border-radius:4px;opacity:.35}
+/* charts */
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.chart-card{background:var(--card);border:1px solid var(--card-border);border-radius:16px;padding:28px}
+.chart-card h3{font-size:1.05rem;font-weight:700;margin-bottom:18px}
+.chart-canvas-wrap{position:relative;width:100%;height:320px}
+/* deep dive */
+.dd{background:linear-gradient(135deg,rgba(76,120,168,.08),rgba(245,133,24,.06));border:1px solid rgba(76,120,168,.25);border-radius:18px;padding:36px;position:relative;overflow:hidden}
+.dd::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--road),var(--air))}
+.dd-badge{display:inline-block;background:rgba(76,120,168,.18);color:var(--road);font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:6px;margin-bottom:14px;text-transform:uppercase;letter-spacing:.05em}
+.dd-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:20px;align-items:center}
+.dd-stat{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--card-border);font-size:.92rem}
+.dd-stat:last-child{border-bottom:none}.dd-stat .label{color:var(--muted)}.dd-stat .value{font-family:var(--mono);font-weight:600}
+.dd-kicker{font-size:1.05rem;line-height:1.6;margin:16px 0 8px;color:var(--text)}
+.dd-kicker b{color:var(--air)}
+/* insights */
+.insights-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.insight-card{background:var(--card);border:1px solid var(--card-border);border-radius:12px;padding:22px;display:flex;gap:14px;align-items:flex-start;transition:border-color .3s,transform .3s}
+.insight-card:hover{border-color:var(--road);transform:translateY(-2px)}
+.insight-icon{font-size:1.5rem;flex-shrink:0;width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:10px;background:rgba(76,120,168,.12)}
+.insight-card p{font-size:.94rem;font-weight:500;line-height:1.5}
+.insight-card p b{color:var(--air)}
+/* footer + nav */
+footer{border-top:1px solid var(--card-border);padding:44px 0;text-align:center;color:var(--muted);font-size:.85rem;line-height:2}
+footer a{color:var(--road);text-decoration:none}footer a:hover{text-decoration:underline}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,14,26,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--card-border);padding:0 24px;transform:translateY(-100%);transition:transform .3s}
+nav.visible{transform:none}
+nav .inner{max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
+nav .brand{font-weight:800}nav .nav-links{display:flex;gap:22px;list-style:none}
+nav .nav-links a{color:var(--muted);text-decoration:none;font-size:.85rem;font-weight:500}
+nav .nav-links a:hover{color:var(--text)}
+@media(max-width:768px){.chart-grid{grid-template-columns:1fr}.dd-grid{grid-template-columns:1fr}.hero-numbers{flex-direction:column;gap:30px}h2{font-size:1.6rem}nav .nav-links{display:none}}
+::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:#374151;border-radius:4px}
+</style>
+</head>
+<body>
+
+<nav id="mainNav"><div class="inner">
+  <div class="brand">Universe of Movement</div>
+  <ul class="nav-links">
+    <li><a href="#leaderboard">Modes</a></li>
+    <li><a href="#charts">Charts</a></li>
+    <li><a href="#deepdive">Deep Dive</a></li>
+    <li><a href="#insights">Insights</a></li>
+  </ul>
+</div></nav>
+
+<!-- HERO -->
+<section class="hero visible" id="hero">
+  <div class="container" style="display:flex;flex-direction:column;align-items:center">
+    <div class="hero-badge">Open Research Project · Run 2</div>
+    <h1>Universe of Movement</h1>
+    <p class="tagline">How fast is the human race moving?</p>
+    <div class="hero-numbers">
+      <div class="hero-stat">
+        <div class="big-number ahv mono">~<span id="cAHV">0</span>B</div>
+        <div class="unit">person-mph</div>
+        <div class="sub">Aggregate Human Velocity — the Big Number</div>
+      </div>
+      <div class="hero-stat">
+        <div class="big-number vbar mono">~<span id="cVbar">0</span></div>
+        <div class="unit">mph</div>
+        <div class="sub">the average human's time-averaged speed</div>
+      </div>
+      <div class="hero-stat">
+        <div class="big-number odo mono">~<span id="cOdo">0</span>T</div>
+        <div class="unit">person-miles / yr</div>
+        <div class="sub">humanity's odometer (~182k trips to the Sun)</div>
+      </div>
+    </div>
+    <div class="hero-explain">
+      <div class="label">What is AHV?</div>
+      <p>Aggregate Human Velocity is the sum, over every moving human, of (people × speed) — the rate at which humanity as a whole covers distance. Built from the flow lens: annual passenger-kilometres by mode ÷ hours per year. The median human right now is doing <em>0 mph</em>; the average, once you count all the stationary time, is under half a mile per hour.</p>
+    </div>
+  </div>
+  <div class="scroll-cue" aria-hidden="true">&#8595;</div>
+</section>
+
+<!-- LEADERBOARD -->
+<section id="leaderboard"><div class="container">
+  <h2>Modal Leaderboard</h2>
+  <p class="section-subtitle">Every mode ranked by its contribution to Aggregate Human Velocity (flow lens, 2024). Road wins on headcount; air wins per traveller.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>#</th><th>Mode</th><th>AHV (M person-mph)</th><th>Share</th><th>Annual pkm</th><th>Confidence</th></tr></thead>
+    <tbody id="lbBody"></tbody>
+  </table></div>
+</div></section>
+
+<!-- CHARTS -->
+<section id="charts"><div class="container">
+  <h2>Visual Breakdown</h2>
+  <p class="section-subtitle">Mode share of the Big Number, and how the average human's speed has changed — including the 2020 great deceleration.</p>
+  <div class="chart-grid">
+    <div class="chart-card"><h3>Mode Share of AHV</h3><div class="chart-canvas-wrap"><canvas id="modeDoughnut"></canvas></div></div>
+    <div class="chart-card"><h3>Per-Capita Mean Speed v&#772; (2015&ndash;2024)</h3><div class="chart-canvas-wrap"><canvas id="vbarLine"></canvas></div></div>
+  </div>
+</div></section>
+
+<!-- DEEP DIVE -->
+<section id="deepdive"><div class="container">
+  <h2>Deep Dive — North American Consumer Auto</h2>
+  <p class="section-subtitle">Non-commercial, non-government miles driven by the public in the US, Canada &amp; Mexico, split by vehicle type. A subset of the global Road mode.</p>
+  <div class="dd">
+    <span class="dd-badge">Run 2 · Deep Dive</span>
+    <p class="dd-kicker">North Americans personally drive ~<b>2.85 trillion vehicle-miles</b> a year &mdash; ~<b>4.51 trillion passenger-miles</b>, an <b>AHV of ~515 million person-mph</b>. That one slice of life <b>nearly equals the aggregate velocity of all commercial aviation on Earth</b>.</p>
+    <div class="dd-grid">
+      <div>
+        <div class="dd-stat"><span class="label">Personal vehicle-miles / yr</span><span class="value">2.85 T</span></div>
+        <div class="dd-stat"><span class="label">Passenger-miles / yr</span><span class="value">4.51 T</span></div>
+        <div class="dd-stat"><span class="label">AHV contribution</span><span class="value" style="color:var(--air)">515 M p-mph</span></div>
+        <div class="dd-stat"><span class="label">Blended occupancy</span><span class="value">1.58</span></div>
+        <div class="dd-stat"><span class="label">v&#772; from driving alone (NA)</span><span class="value">1.02 mph</span></div>
+        <div class="dd-stat"><span class="label">Share of all global road travel</span><span class="value">~19.6%</span></div>
+        <div class="dd-stat"><span class="label">US / Canada / Mexico</span><span class="value">90 / 7 / 3%</span></div>
+      </div>
+      <div class="chart-canvas-wrap" style="height:340px"><canvas id="ddBar"></canvas></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- INSIGHTS -->
+<section id="insights"><div class="container">
+  <h2>Key Insights</h2>
+  <p class="section-subtitle">What the data says about how the human race moves.</p>
+  <div class="insights-grid" id="insightsGrid"></div>
+</div></section>
+
+<footer><div class="container">
+  <p>Flow lens · 6 modes + North American Consumer Auto deep dive · Run 2 · 2026-07-20</p>
+  <p><a href="https://github.com/quackstra/universe-of-movement" target="_blank" rel="noopener">View the full research on GitHub</a> &middot; <a href="analysis/aggregate/BIG_NUMBER.md">The Big Number</a></p>
+  <p style="margin-top:14px">&copy; 2026 Universe of Movement &middot; <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></p>
+</div></footer>
+
+<script>
+const MODES=[
+  {name:"Road",ahv:2625,share:68.0,pkm:"~37 T",conf:"mid",color:"#4C78A8"},
+  {name:"Air",ahv:638,share:16.5,pkm:"9.0 T",conf:"high",color:"#F58518"},
+  {name:"Active (walk/cycle)",ahv:312,share:8.1,pkm:"~4.4 T",conf:"low",color:"#B279A2"},
+  {name:"Rail",ahv:269.5,share:7.0,pkm:"3.8 T",conf:"mid",color:"#54A24B"},
+  {name:"Water",ahv:14.2,share:0.4,pkm:"~0.2 T",conf:"low",color:"#72B7B2"},
+  {name:"Off-Earth",ahv:0.17,share:0.004,pkm:"2.4 B",conf:"mid",color:"#9aa0aa"},
+];
+const VBAR=[{y:2015,v:0.40},{y:2019,v:0.48},{y:2020,v:0.34},{y:2024,v:0.48}];
+const DD=[
+  {t:"SUV / Crossover",vmt:1140,pm:1938},{t:"Sedan",vmt:627,pm:878},
+  {t:"Compact car",vmt:428,pm:599},{t:"Pickup — full-size",vmt:314,pm:471},
+  {t:"Minivan / Van",vmt:200,pm:420},{t:"Pickup — mid-size",vmt:114,pm:171},
+  {t:"Motorcycle",vmt:29,pm:32},
+];
+const INSIGHTS=[
+  {i:"🐢",t:"The average human moves at <b>~0.5 mph</b> — the median human right now is doing <b>0 mph</b>, sitting still."},
+  {i:"🚗",t:"<b>Road is 68%</b> of the Big Number. It wins on sheer headcount: ~88M people are on the roads at any instant."},
+  {i:"✈️",t:"Aviation is <b>0.016% of humanity</b> yet <b>16.5% of AHV</b> — ~1.3M people airborne generate one-sixth of the world's motion."},
+  {i:"🚶",t:"<b>Ubiquity beats speed</b>: active travel (~3.4 mph) out-contributes rail, because ~92M people are always on foot or bike."},
+  {i:"📉",t:"2020 was the <b>great deceleration</b> — air fell 66%, rail 44%, road ~20%. The first time in a century humanity measurably slowed."},
+  {i:"🛰️",t:"~10 astronauts are the <b>fastest humans alive</b> (~17,150 mph) — but 10 people can't move the aggregate. The inverse of walking."},
+];
+
+const confClass={high:"conf-high",mid:"conf-mid",low:"conf-low"};
+const confLabel={high:"🟢 High",mid:"🟡 Medium",low:"🔴 Low"};
+const maxAhv=Math.max(...MODES.map(m=>m.ahv));
+
+// leaderboard
+document.getElementById("lbBody").innerHTML=MODES.map((m,i)=>`
+  <tr>
+    <td class="td-number">${i+1}</td>
+    <td class="td-name"><span class="dot" style="background:${m.color}"></span>${m.name}</td>
+    <td class="bar-cell"><span class="bar-fill" style="width:${Math.max(2,m.ahv/maxAhv*100)}%;background:${m.color}"></span><span class="td-number" style="position:relative">${m.ahv.toLocaleString()}</span></td>
+    <td class="td-number">${m.share}%</td>
+    <td class="td-number">${m.pkm}</td>
+    <td><span class="conf ${confClass[m.conf]}">${confLabel[m.conf]}</span></td>
+  </tr>`).join("");
+
+// insights
+document.getElementById("insightsGrid").innerHTML=INSIGHTS.map(x=>`
+  <div class="insight-card"><div class="insight-icon">${x.i}</div><p>${x.t}</p></div>`).join("");
+
+// counters
+function animate(id,target,dec,dur=1400){
+  const el=document.getElementById(id);let start=null;
+  function step(ts){if(!start)start=ts;const p=Math.min((ts-start)/dur,1);
+    const v=target*(1-Math.pow(1-p,3));el.textContent=v.toFixed(dec);
+    if(p<1)requestAnimationFrame(step)}
+  requestAnimationFrame(step);
+}
+// charts
+Chart.defaults.color="#9ca3af";Chart.defaults.font.family="'Inter',sans-serif";
+function makeCharts(){
+  new Chart(document.getElementById("modeDoughnut"),{type:"doughnut",
+    data:{labels:MODES.map(m=>m.name),datasets:[{data:MODES.map(m=>m.ahv),backgroundColor:MODES.map(m=>m.color),borderColor:"#0a0e1a",borderWidth:2}]},
+    options:{plugins:{legend:{position:"bottom",labels:{padding:12,font:{size:11}}}},cutout:"58%",maintainAspectRatio:false}});
+  new Chart(document.getElementById("vbarLine"),{type:"line",
+    data:{labels:VBAR.map(p=>p.y),datasets:[{label:"v̄ (mph)",data:VBAR.map(p=>p.v),borderColor:"#F58518",backgroundColor:"rgba(245,133,24,.12)",fill:true,tension:.3,pointRadius:5,pointBackgroundColor:"#F58518"}]},
+    options:{plugins:{legend:{display:false},tooltip:{callbacks:{afterlabel:c=>c.dataIndex===2?"COVID — the great deceleration":""}}},
+      scales:{y:{title:{display:true,text:"mph"},grid:{color:"#1e293b"}},x:{grid:{color:"#1e293b"}}},maintainAspectRatio:false}});
+  new Chart(document.getElementById("ddBar"),{type:"bar",
+    data:{labels:DD.map(d=>d.t),datasets:[
+      {label:"Vehicle-miles (B)",data:DD.map(d=>d.vmt),backgroundColor:"#4C78A8"},
+      {label:"Passenger-miles (B)",data:DD.map(d=>d.pm),backgroundColor:"#F58518"}]},
+    options:{indexAxis:"y",plugins:{legend:{position:"bottom",labels:{font:{size:11}}}},
+      scales:{x:{title:{display:true,text:"Billions of miles / yr"},grid:{color:"#1e293b"}},y:{grid:{display:false}}},maintainAspectRatio:false}});
+}
+
+// reveal + nav + counters on load
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add("visible")}),{threshold:.12});
+document.querySelectorAll("section").forEach(s=>io.observe(s));
+window.addEventListener("scroll",()=>{document.getElementById("mainNav").classList.toggle("visible",window.scrollY>600)});
+window.addEventListener("load",()=>{
+  animate("cAHV",3.86,2);animate("cVbar",0.48,2);animate("cOdo",33.8,1);
+  makeCharts();
+});
+</script>
+</body>
+</html>

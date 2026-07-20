@@ -24,7 +24,16 @@ See the full [**Big Number report**](aggregate/BIG_NUMBER.md).
 | 3 | Active | 312 | 8.1% | ~4.4T | 🔴 | [active](active/active/REPORT.md) |
 | 4 | Rail | 270 | 7.0% | 3.8T | 🟡 | [rail](rail/rail/REPORT.md) |
 | 5 | Water | 14 | 0.4% | ~0.2T | 🔴 | [water](water/water/REPORT.md) |
+| 6 | Off-Earth | 0.17 | 0.004% | 2.4B | 🟡 | [offearth](offearth/offearth/REPORT.md) |
 | | **Total (flow lens)** | **3,859** | **100%** | **~54.4T** | | |
+
+## Deep Dives
+
+- **[North American Consumer Auto](deep-dives/north-american-consumer-auto/REPORT.md)** —
+  non-commercial/non-government miles driven in US+CA+MX, split by vehicle type
+  (SUV/sedan/compact/pickup/van/motorcycle). ~2.85T vehicle-miles → ~4.51T
+  passenger-miles → **AHV ~515M person-mph** (≈ all of global aviation). *Subset
+  of Road — excluded from the Big Number total.*
 
 ## Capsules by Mode
 
@@ -47,3 +56,4 @@ See the full [**Big Number report**](aggregate/BIG_NUMBER.md).
 | Run | Date | Focus | Output |
 |-----|------|-------|--------|
 | 1 | 2026-07-20 | Flow lens, top 5 modes | First Big Number (AHV ≈ 3.86B person-mph) |
+| 2 | 2026-07-20 | NA Consumer Auto deep dive + Off-Earth + dashboard | Deep dive (~515M p-mph), GitHub Pages site |

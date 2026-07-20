@@ -39,9 +39,15 @@ summed over every moving human: **Σ (people × speed)**.
 | 3 | Active | 312 | 8.1% | 🔴 |
 | 4 | Rail | 270 | 7.0% | 🟡 |
 | 5 | Water | 14 | 0.4% | 🔴 |
+| 6 | Off-Earth | 0.17 | 0.004% | 🟡 |
 
+**Interactive dashboard:** [quackstra.github.io/universe-of-movement](https://quackstra.github.io/universe-of-movement/) ·
 Full write-up: [**The Big Number**](analysis/aggregate/BIG_NUMBER.md) ·
 [**Research Index**](analysis/README.md).
+
+**Deep Dive:** [North American Consumer Auto](analysis/deep-dives/north-american-consumer-auto/REPORT.md)
+— the public's ~2.85T vehicle-miles of personal driving, split by vehicle type;
+AHV ~515M person-mph (≈ all of global aviation).
 
 ## The Metric
 
@@ -89,9 +95,11 @@ python3 tools/charts.py # regenerate charts
 
 ## Status
 
-**Run 1 complete (2026-07-20):** framework forked from Universe of Finance; flow
-lens established for the top 5 modes; first Big Number computed. Next: upgrade
-road's confidence, add historic reconstruction (pre-rail → jet age), build the
+**Run 2 complete (2026-07-20):** added the North American Consumer Auto deep dive,
+an Off-Earth capsule (the fastest humans alive), and an interactive GitHub Pages
+dashboard. **Run 1** forked the framework from Universe of Finance and established
+the flow lens for the top 5 modes. Next: upgrade road's confidence with the deep
+dive's methodology, add historic reconstruction (pre-rail → jet age), build the
 snapshot lens, and expand toward the 48-capsule floor. See
 [`notes/research_agenda.md`](notes/research_agenda.md).
 

@@ -1,0 +1,30 @@
+{
+  "mode": "Off-Earth",
+  "category": "offearth",
+  "lens": "flow",
+  "last_updated": "2026-07-20",
+  "current": {
+    "annual_pkm":        { "value": 2.42e9, "unit": "passenger-km/yr", "source": "~10 humans continuously in orbit × 27,600 km/h × 8760 h", "url": "https://www.nasa.gov/international-space-station/", "confidence": "medium" },
+    "avg_speed_mph":     { "value": 17150, "source": "ISS orbital velocity ~7.66 km/s (Tiangong similar)", "confidence": "high" },
+    "ahv_person_mph":    { "value": 1.72e5, "derivation": "2.42e9 * 0.621371 / 8760", "confidence": "medium" },
+    "people_in_motion_avg": { "value": 10, "source": "ISS crew ~7 + Tiangong ~3 (typical)", "confidence": "high" },
+    "population_share_pct": { "value": 1.2e-7, "derivation": "10 / 8.1e9 * 100", "confidence": "high" }
+  },
+  "historic": [
+    { "year": 2015, "annual_pkm": 1.7e9, "ahv_person_mph": 1.21e5, "source": "ISS only, ~6 crew", "confidence": "medium" },
+    { "year": 2024, "annual_pkm": 2.42e9, "ahv_person_mph": 1.72e5, "source": "ISS + Tiangong", "confidence": "medium" }
+  ],
+  "projections": {
+    "baseline":      [ { "year": 2030, "annual_pkm": 3.6e9,  "ahv_person_mph": 2.55e5 }, { "year": 2050, "annual_pkm": 1.2e10, "ahv_person_mph": 8.5e5 } ],
+    "high_mobility": [ { "year": 2030, "annual_pkm": 7.0e9,  "ahv_person_mph": 4.96e5 }, { "year": 2050, "annual_pkm": 6.0e10, "ahv_person_mph": 4.25e6 } ],
+    "substitution":  [ { "year": 2030, "annual_pkm": 3.0e9,  "ahv_person_mph": 2.13e5 }, { "year": 2050, "annual_pkm": 8.0e9,  "ahv_person_mph": 5.67e5 } ]
+  },
+  "subcategories": [
+    { "name": "ISS crew",              "share_pct": 65, "avg_speed_mph": 17150 },
+    { "name": "Tiangong crew",         "share_pct": 30, "avg_speed_mph": 17130 },
+    { "name": "Suborbital tourism",    "share_pct": 5,  "avg_speed_mph": 2300 }
+  ],
+  "sources": [
+    { "id": 1, "citation": "NASA — International Space Station (orbital velocity ~7.66 km/s ≈ 17,150 mph)", "url": "https://www.nasa.gov/international-space-station/", "accessed": "2026-07-20" }
+  ]
+}

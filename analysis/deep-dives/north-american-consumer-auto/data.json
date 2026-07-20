@@ -1,0 +1,42 @@
+{
+  "mode": "Deep Dive — North American Consumer Auto",
+  "category": "north-american-consumer-auto",
+  "lens": "flow",
+  "note": "DEEP DIVE — subset of the global Road mode. Hyphenated slug: EXCLUDED from the global Big Number total by tools/ahv.py to avoid double-counting.",
+  "last_updated": "2026-07-20",
+  "scope": "Private, non-commercial, non-government light vehicles + motorcycles in the US, Canada, and Mexico. Excludes freight trucks, buses, taxis/rideshare-as-business, rental/corporate fleets, and government (publicly-owned) vehicles.",
+  "current": {
+    "annual_vehicle_miles": { "value": 2.852e12, "unit": "vehicle-miles/yr", "source": "US personal LDV ~2.56T (FHWA VM-1 2023 LDV 2.879T less ~gov+commercial) + Canada ~0.205T + Mexico ~0.087T", "url": "https://www.fhwa.dot.gov/policyinformation/statistics/2023/vm1.cfm", "confidence": "medium" },
+    "avg_occupancy":        { "value": 1.58, "unit": "persons/vehicle", "source": "NHTS 2022 blended (car 1.4, SUV 1.7, van 2.1, pickup 1.5)", "url": "https://www.energy.gov/cmei/vehicles/articles/fotw-1333-march-11-2024-2022-average-number-occupants-trip-household", "confidence": "high" },
+    "annual_passenger_miles": { "value": 4.509e12, "unit": "passenger-miles/yr", "derivation": "Σ (VMT_type × occupancy_type)", "confidence": "medium" },
+    "annual_pkm":           { "value": 7.256e12, "unit": "passenger-km/yr", "derivation": "4.509e12 passenger-miles × 1.60934", "confidence": "medium" },
+    "avg_speed_mph":        { "value": 30, "source": "Blended urban stop-go + highway personal driving", "confidence": "low" },
+    "ahv_person_mph":       { "value": 5.147e8, "derivation": "4.509e12 passenger-miles / 8760 h", "confidence": "medium" },
+    "people_in_motion_avg": { "value": 1.72e7, "derivation": "5.147e8 / 30", "confidence": "low" },
+    "na_population":         { "value": 5.05e8, "source": "US ~335M + Canada ~40M + Mexico ~130M", "confidence": "high" },
+    "vbar_na_mph":          { "value": 1.02, "derivation": "5.147e8 / 5.05e8", "confidence": "medium" }
+  },
+  "country_split": [
+    { "country": "United States", "vehicle_miles": 2.560e12, "share_pct": 89.8 },
+    { "country": "Canada",        "vehicle_miles": 0.205e12, "share_pct": 7.2 },
+    { "country": "Mexico",        "vehicle_miles": 0.087e12, "share_pct": 3.0 }
+  ],
+  "subcategories": [
+    { "name": "SUV / Crossover",          "vmt_b_mi": 1140, "share_pct": 40, "occupancy": 1.7, "pass_miles_b": 1938 },
+    { "name": "Sedan (mid/full-size car)","vmt_b_mi": 627,  "share_pct": 22, "occupancy": 1.4, "pass_miles_b": 878 },
+    { "name": "Compact / subcompact car", "vmt_b_mi": 428,  "share_pct": 15, "occupancy": 1.4, "pass_miles_b": 599 },
+    { "name": "Pickup — full-size",       "vmt_b_mi": 314,  "share_pct": 11, "occupancy": 1.5, "pass_miles_b": 471 },
+    { "name": "Minivan / Van",            "vmt_b_mi": 200,  "share_pct": 7,  "occupancy": 2.1, "pass_miles_b": 420 },
+    { "name": "Pickup — mid-size",        "vmt_b_mi": 114,  "share_pct": 4,  "occupancy": 1.5, "pass_miles_b": 171 },
+    { "name": "Motorcycle",               "vmt_b_mi": 29,   "share_pct": 1,  "occupancy": 1.1, "pass_miles_b": 32 }
+  ],
+  "sources": [
+    { "id": 1, "citation": "FHWA Highway Statistics 2023, Table VM-1 — total VMT 3.247T; light-duty 2.879T", "url": "https://www.fhwa.dot.gov/policyinformation/statistics/2023/vm1.cfm", "accessed": "2026-07-20" },
+    { "id": 2, "citation": "FHWA Highway Statistics 2023, Table MV-1 — 284.6M registered vehicles; 4.67M publicly-owned (government)", "url": "https://www.fhwa.dot.gov/policyinformation/statistics/2023/mv1.cfm", "accessed": "2026-07-20" },
+    { "id": 3, "citation": "US DOE FOTW #1333 (NHTS 2022) — average vehicle occupancy 1.5; by type car 1.4 / SUV 1.7 / van 2.1", "url": "https://www.energy.gov/cmei/vehicles/articles/fotw-1333-march-11-2024-2022-average-number-occupants-trip-household", "accessed": "2026-07-20" },
+    { "id": 4, "citation": "AFDC — Composition of new US light-duty vehicles; SUVs 54% of LDVs produced 2022; light trucks ~61% of fleet", "url": "https://afdc.energy.gov/data/10306", "accessed": "2026-07-20" },
+    { "id": 5, "citation": "NHTSA — Motorcycles: 2023 Data (motorcycle VMT ~20B mi; ~8.6M registered)", "url": "https://crashstats.nhtsa.dot.gov/Api/Public/ViewPublication/813732.pdf", "accessed": "2026-07-20" },
+    { "id": 6, "citation": "Statistics Canada — Canadian Vehicle Survey (light-vehicle VKT)", "url": "https://open.canada.ca/data/en/dataset/205aa6d6-56b3-4490-8a41-b203f337c6e1", "accessed": "2026-07-20" },
+    { "id": 7, "citation": "CEIC / OECD — Mexico road traffic (auto VKT 90.6B km in 2007, grown with fleet)", "url": "https://www.ceicdata.com/en/mexico/road-traffic-and-road-accident-fatalities-oecd-member-annual/mx-road-traffic-thousand-vehiclekm-per-road-motor-vehicle", "accessed": "2026-07-20" }
+  ]
+}
