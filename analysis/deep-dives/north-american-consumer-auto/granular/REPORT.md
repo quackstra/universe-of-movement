@@ -14,6 +14,11 @@ it bottom-up: **VMT = VIO × personal-share × annual-miles** (grounded in S&P D
 VIO shares + the NHTS age-mileage curve). Recompute with
 `python3 tools/granular_rollup.py`.
 
+> **Precision upgrade:** Run 4 replaced the flat per-model mileage used below with
+> a triangulated **custom** figure from WHERE × HOW × WHO × NEW/USED × AGE — see
+> [**The Precision Layer**](PRECISION_MODEL.md) (`tools/mileage_model.py`). Pickups
+> revise up ~+35%, motorcycles/compacts down; the F-150 lands at ~16,700 mi/yr.
+
 ## Coverage & the long tail
 
 | | |

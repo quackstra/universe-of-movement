@@ -184,6 +184,9 @@ nav .nav-links a:hover{color:var(--text)}
         <p class="muted" style="font-size:.82rem;margin-top:8px">The public-data wall sits at model-year. Below it (trim/VIN) only DMV, OEM telemetry, or insurer telematics can see. <a href="analysis/deep-dives/north-american-consumer-auto/GRANULARITY_FRONTIER.md" style="color:var(--road)">Read the frontier analysis →</a></p>
       </div>
     </div>
+    <p class="dd-kicker" style="margin-top:26px"><b>Precision layer:</b> we stopped assuming a national average and triangulated <b>custom miles</b> from <b>WHERE × HOW × WHO × NEW/USED × AGE</b>. Pickups revise <b>up ~35%</b> (rural + high-income + utility use), motorcycles &amp; compacts down; a <b>new F-150 (~20,000 mi/yr) is driven ~2.5× a 20-year-old one</b>. The top-20 average 11,717 mi vs the fleet's ~10,160 — so the <b>long tail is driven less</b> than the cars you see most.</p>
+    <div class="chart-canvas-wrap" style="height:420px"><canvas id="revBar"></canvas></div>
+    <p class="muted" style="font-size:.82rem;margin-top:8px">Caveat: this is <b>ecological inference</b> (combining marginals assumes conditional independence) — a principled prior, not per-vehicle measurement. <a href="analysis/deep-dives/north-american-consumer-auto/granular/PRECISION_MODEL.md" style="color:var(--road)">Read the precision model →</a></p>
   </div>
 </div></section>
 
@@ -221,6 +224,12 @@ const MODEL_TOP=[
   {m:"Toyota RAV4",ahv:10.80,c:"#F58518"},{m:"Toyota Camry",ahv:10.30,c:"#54A24B"},
   {m:"Chevy Silverado",ahv:9.49,c:"#4C78A8"},{m:"Honda Accord",ahv:8.90,c:"#54A24B"},
   {m:"Toyota Corolla",ahv:8.26,c:"#B279A2"},{m:"Honda Civic",ahv:7.89,c:"#B279A2"},
+];
+const REV=[
+  {m:"Ford F-150",d:39},{m:"GMC Sierra",d:37},{m:"Ram 1500",d:34},{m:"Toyota Tacoma",d:32},
+  {m:"Chevy Silverado",d:31},{m:"Ford Ranger",d:23},{m:"Toyota Sienna",d:19},{m:"Honda CR-V",d:4},
+  {m:"Toyota Camry",d:4},{m:"Toyota Corolla",d:-5},{m:"Tesla Model Y",d:-6},{m:"Honda Civic",d:-8},
+  {m:"Harley-Davidson",d:-16},{m:"Honda motorcycles",d:-24},
 ];
 const INSIGHTS=[
   {i:"🐢",t:"The average human moves at <b>~0.5 mph</b> — the median human right now is doing <b>0 mph</b>, sitting still."},
@@ -278,6 +287,10 @@ function makeCharts(){
     data:{labels:MODEL_TOP.map(d=>d.m),datasets:[{label:"AHV (M person-mph)",data:MODEL_TOP.map(d=>d.ahv),backgroundColor:MODEL_TOP.map(d=>d.c)}]},
     options:{indexAxis:"y",plugins:{legend:{display:false},title:{display:true,text:"Top models by AHV (US personal)",color:"#e6e8ee"}},
       scales:{x:{title:{display:true,text:"million person-mph"},grid:{color:"#1e293b"}},y:{grid:{display:false}}},maintainAspectRatio:false}});
+  new Chart(document.getElementById("revBar"),{type:"bar",
+    data:{labels:REV.map(d=>d.m),datasets:[{label:"Δ custom miles vs flat (%)",data:REV.map(d=>d.d),backgroundColor:REV.map(d=>d.d<0?"#E45756":"#54A24B")}]},
+    options:{indexAxis:"y",plugins:{legend:{display:false},title:{display:true,text:"Triangulated mileage revision vs flat assumption (%)",color:"#e6e8ee"}},
+      scales:{x:{grid:{color:"#1e293b"}},y:{grid:{display:false}}},maintainAspectRatio:false}});
 }
 
 // reveal + nav + counters on load

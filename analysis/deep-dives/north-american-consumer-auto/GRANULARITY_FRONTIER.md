@@ -87,6 +87,12 @@ and is the main durable capability this run produced (`tools/granular_rollup.py`
   whole Universe of Research (does the tree reconcile to the trunk?).
 - **Confidence gradients within a single tree** — 🟢 at grounded top models, 🔴 at
   estimated tail — modelling honesty at scale.
+- **Custom-mileage triangulation** (Run 4, `tools/mileage_model.py`) — a
+  multiplicative, mean-normalized factor model (WHERE × HOW × WHO × NEW/USED × AGE)
+  that turns marginal demographic/geographic data into per-unit mileage estimates,
+  with explicit ecological-inference and collinearity handling. See
+  [The Precision Layer](granular/PRECISION_MODEL.md). This is the method that lets
+  us *estimate* below the public-data ceiling instead of stopping at it.
 
 ## Implication for the Universe of Research
 

@@ -40,6 +40,10 @@ See the full [**Big Number report**](aggregate/BIG_NUMBER.md).
   - [**The Granularity Frontier**](deep-dives/north-american-consumer-auto/GRANULARITY_FRONTIER.md)
     — meta-analysis: how deep public data reaches (L1–L6), the paid/proprietary
     wall, and the new research capabilities & needs this unveils.
+  - [**The Precision Layer**](deep-dives/north-american-consumer-auto/granular/PRECISION_MODEL.md)
+    — triangulated custom mileage from WHERE × HOW × WHO × NEW/USED × AGE
+    (`tools/mileage_model.py`); pickups +~35%, motorcycles down, and the long tail
+    revealed as lower-mileage than the headline models.
 
 ## Capsules by Mode
 
@@ -64,3 +68,4 @@ See the full [**Big Number report**](aggregate/BIG_NUMBER.md).
 | 1 | 2026-07-20 | Flow lens, top 5 modes | First Big Number (AHV ≈ 3.86B person-mph) |
 | 2 | 2026-07-20 | NA Consumer Auto deep dive + Off-Earth + dashboard | Deep dive (~515M p-mph), GitHub Pages site |
 | 3 | 2026-07-20 | Granularity experiment (auto: type→company→make→model→year) | VIO×mileage-curve engine, granular tree (27.3% coverage), Granularity Frontier report |
+| 4 | 2026-07-20 | Precision: custom-mileage triangulation (WHERE×HOW×WHO×NEW/USED×AGE) | Factor model (`mileage_model.py`); pickups +~35%; long-tail distribution insight |

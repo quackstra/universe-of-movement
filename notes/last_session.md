@@ -1,49 +1,46 @@
-# Last Session Notes — 2026-07-20 (Run 3)
+# Last Session Notes — 2026-07-20 (Run 4)
 
-## Focus: granularity experiment — how deep can we go in NA consumer auto?
+## Focus: PRECISION — triangulate custom annual miles per model
 
-Deliberate depth test (per Ferg): drill the North American consumer-auto deep dive
-down the full hierarchy **type → company → make → model → model-year → (trim/VIN)**
-to unveil new research capabilities and data needs for the Universe of Research.
+Replaced Run 3's flat per-model mileage with a multiplicative **factor model** that
+estimates each vehicle's miles from **WHERE × HOW × WHO × NEW/USED × AGE**.
 
 ## What was built
-- **Granular tree** (`analysis/.../granular/data.json`) — 20 models across 7 types,
-  grounded in **S&P DMV VIO shares** (F-150 3.7%, Silverado 2.7%, Camry 2.3%,
-  Accord/CR-V 2.0%) × 286M US VIO.
-- **New capability — VIO × mileage-age-curve engine** (`tools/granular_rollup.py`):
-  personal_VMT = VIO × personal_share × annual_miles; rolls up model→make→company→
-  type→total and reconciles to the deep-dive target.
-- **F-150 model-year drill** (survival curve × age-mileage curve).
-- **GRANULARITY_FRONTIER.md** — the meta-deliverable: L1–L6 levels, data source +
-  confidence + cost per level, the public-data wall at L5/L6, new capabilities/needs.
-- Charts: top models by AHV, F-150 by model-year, the granularity pyramid.
-- Dashboard: added a granularity section (top-models chart + pyramid + frontier link).
+- **`factors.json`** — base-by-type mileage (HOW) + per-model WHERE/WHO profiles
+  (geo, income, driver-age) + cohort curves (age decay × new/used).
+- **`tools/mileage_model.py`** — computes `custom_miles = base_by_type ×
+  normalize(geo×income×driverage)`, mean-normalized (VIO-weighted) so factors
+  REDISTRIBUTE without inflating the total; F-150 model-year drill with new/used.
+- **PRECISION_MODEL.md** + methodology workings (ecological inference, collinearity,
+  normalization); charts (mileage_revision, f150_cohort_miles); dashboard section.
+
+## Sourced factor anchors
+- HOW: car ~12,400 / SUV ~11,600 / pickup ~13,900 / motorcycle ~2,259 mi/yr (NHTS/iSeeCars)
+- WHERE: WY 21,588 vs DC 6,695 mi/driver; pickups rural/mountain, EVs urban-coastal
+- WHO income: HH >$70k ~2× HH <$10k; F-150 = #1 vehicle for >$200k earners
+- WHO age: 35–54 peak 15,291; 65+ 7,646 (FHWA)
+- NEW/USED: new-buyer HH ~$80k vs used ~$48k
 
 ## Key findings
-- **Long tail dominates**: top-20 models = only **27.3%** of US personal VMT (300+
-  tail models are the rest). Granularity has steep diminishing returns for the
-  aggregate, but is essential for per-model questions.
-- **Occupancy reshuffles ranking**: by AHV, **CR-V & RAV4 outrank Camry & Silverado**
-  (SUV occupancy 1.7 > sedan 1.4). Biggest-by-sales ≠ biggest-by-human-velocity.
-- **Personal/commercial split becomes decisive at model level**: F-150 fleet AHV
-  ~20.2M vs consumer ~11.5M (43% haircut) — invisible in DMV counts.
-- **One model ≈ 2.2%** of the whole NA consumer-auto AHV (F-150).
-- **Brand ≠ volume for velocity**: Toyota+Honda lead consumer AHV vs GM+Ford leading
-  sales (truck vs passenger skew). [tree is partial — GM/Ford understated.]
+- **Pickups revise up hard**: F-150 +39%, Sierra +37%, Ram +34%, Tacoma +32%
+  (rural + high-income + utility use). Motorcycles −16/−24%, compacts −5/−8%.
+- **F-150 AHV 12.4 → 17.3M person-mph**; a **new F-150 (~20,000 mi/yr) ≈ 2.5× a
+  20-yr-old one** (age × new/used compound).
+- **Distribution-shape insight**: top-20 models average 11,717 mi/yr but the whole
+  fleet averages ~10,160 → the **long tail is driven LESS** than the popular models.
+  Granularity changed the *shape*, not just the level.
 
-## The frontier (new needs unveiled)
-- First hard **paywall**: L4–L5 need a paid VIO dataset (S&P/Experian/Polk).
-- **Telematics/connected-car** is the only path to true per-model/per-trim VMT.
-- **Per-model personal-vs-commercial splits** = dominant error below brand level.
-- **Model-level Canada/Mexico** data too thin — granular tree is US-only.
-- Reusable pattern for Universe of Research: map the public-data ceiling + price
-  the datasets that lower it; state precisely what can't be known.
+## Honest limits (documented)
+- Ecological inference: combining marginals assumes conditional independence
+  (model↔income↔geo). A structured prior, not measurement.
+- Collinearity: income/new-used/geo overlap → income full weight, new/used small
+  residual, geo capped; elasticity knobs in factors.json.
+- Per-model profiles are analyst-set (🟡); true fix = telematics/registration (L6).
 
 ## Big Number unchanged
-- AHV ≈ 3.859B person-mph. Granular tree (hyphenated slug) excluded from total.
+- AHV ≈ 3.859B person-mph. All granular/precision work is a Road subset, excluded.
 
-## Deferred / next
-- Buy/ingest a VIO-by-model dataset to convert L4–L5 to 🟢 and close the 73% tail.
-- Extend granular method to another region (validate reusability).
-- Return to refining aggregates by region (Ferg's stated next phase).
-- Historic reconstruction + snapshot lens still outstanding from Run 1–2.
+## Deferred / next (Ferg's stated next phase)
+- Return to refining aggregates BY REGION (the precision engine is reusable there).
+- Buy a VIO-by-model dataset to convert L4–L5 to 🟢 and fit factor profiles.
+- Historic reconstruction + snapshot lens still outstanding from Runs 1–2.

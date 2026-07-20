@@ -1,0 +1,59 @@
+{
+  "title": "Custom-mileage triangulation factors — WHERE × HOW × WHO × NEW/USED × AGE",
+  "note": "Factors are multiplicative and mean-normalized (VIO-weighted) at runtime so they REDISTRIBUTE miles across models/cohorts without changing the fleet total. base_by_type sets the level (HOW); the WHO/WHERE factors redistribute around it. Collinear signals (income/new-used/geography) are intentionally dampened — see workings/mileage_model_methodology.md.",
+  "last_updated": "2026-07-20",
+
+  "base_by_type_miles": {
+    "Full-size pickup": 13900,
+    "Mid-size pickup": 13000,
+    "SUV / Crossover": 11800,
+    "Sedan (mid/full-size car)": 12000,
+    "Compact / subcompact car": 11000,
+    "Minivan / Van": 12500,
+    "Motorcycle": 2600
+  },
+
+  "factor_sources": {
+    "HOW_type": "NHTS/iSeeCars: car ~12,400; SUV ~11,600; pickup ~13,900; motorcycle ~2,259 mi/yr",
+    "WHERE_geo": "State VMT/driver: Wyoming 21,588 vs DC 6,695. Pickups skew rural/mountain (WY 37% share); EVs/luxury skew urban-coastal/affluent",
+    "WHO_income": "NHTS: HH >$70k drive ~2x HH <$10k (dampened per-vehicle: high-income HH own more vehicles)",
+    "WHO_driverage": "FHWA: 35-54 peak 15,291; 20-34 15,098; 55-64 11,972; 16-19 7,624; 65+ 7,646",
+    "NEWUSED": "New-buyer HH income ~$80k vs used ~$48k; new buyers drive more (newer + higher income)"
+  },
+
+  "per_model": {
+    "F-150":            { "geo": 1.15, "income": 1.08, "driverage": 1.02 },
+    "Silverado 1500":   { "geo": 1.15, "income": 1.02, "driverage": 1.02 },
+    "Sierra 1500":      { "geo": 1.15, "income": 1.06, "driverage": 1.02 },
+    "Ram 1500":         { "geo": 1.15, "income": 1.04, "driverage": 1.02 },
+    "Tacoma":           { "geo": 1.10, "income": 1.05, "driverage": 1.02 },
+    "Ranger":           { "geo": 1.10, "income": 1.02, "driverage": 1.02 },
+    "RAV4":             { "geo": 1.00, "income": 1.02, "driverage": 1.00 },
+    "CR-V":             { "geo": 1.00, "income": 1.02, "driverage": 1.00 },
+    "Equinox":          { "geo": 1.02, "income": 0.98, "driverage": 1.00 },
+    "Explorer":         { "geo": 1.00, "income": 1.04, "driverage": 1.05 },
+    "Model Y":          { "geo": 0.85, "income": 1.12, "driverage": 1.02 },
+    "Camry":            { "geo": 0.98, "income": 1.00, "driverage": 0.98 },
+    "Accord":           { "geo": 0.98, "income": 1.02, "driverage": 0.98 },
+    "Model 3":          { "geo": 0.85, "income": 1.10, "driverage": 1.02 },
+    "Corolla":          { "geo": 0.95, "income": 0.94, "driverage": 1.02 },
+    "Civic":            { "geo": 0.95, "income": 0.96, "driverage": 1.02 },
+    "Sienna":           { "geo": 1.00, "income": 1.05, "driverage": 1.05 },
+    "Odyssey":          { "geo": 1.00, "income": 1.05, "driverage": 1.05 },
+    "Harley-Davidson (all)": { "geo": 1.05, "income": 1.02, "driverage": 0.95 },
+    "Honda motorcycles (all)": { "geo": 1.00, "income": 0.98, "driverage": 0.95 }
+  },
+
+  "cohort_curves": {
+    "note": "Applied to model-year cohorts (F-150 drill). age_curve = vehicle-age mileage decay (NHTS); newused = residual buyer-channel tilt (new cohorts bought new/higher-income). Combined and VIO-weighted-normalized within a model.",
+    "age_curve":  { "2021-2025": 1.28, "2016-2020": 1.15, "2011-2015": 0.93, "2006-2010": 0.72, "2005-older": 0.55 },
+    "newused":    { "2021-2025": 1.03, "2016-2020": 1.00, "2011-2015": 0.99, "2006-2010": 0.98, "2005-older": 0.97 }
+  },
+
+  "collinearity_dampening": {
+    "note": "income, new-used, geography partly measure the same SES signal. We apply income at full weight, treat new/used as a small residual (cohort level only), and cap the geo factor's deviation. driverage is the most orthogonal of the WHO factors.",
+    "income_elasticity": 1.0,
+    "geo_elasticity": 1.0,
+    "driverage_elasticity": 1.0
+  }
+}
