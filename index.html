@@ -176,6 +176,14 @@ nav .nav-links a:hover{color:var(--text)}
       </div>
       <div class="chart-canvas-wrap" style="height:340px"><canvas id="ddBar"></canvas></div>
     </div>
+    <p class="dd-kicker" style="margin-top:26px">How deep can granularity go? We drilled <b>type → company → make → model → model-year</b>. The top-20 models cover just <b>27.3%</b> of US personal miles (a 300+ long tail); by AHV the <b>CR-V and RAV4 outrank the Camry and Silverado</b> (occupancy); the <b>Ford F-150 alone ≈ 2.2%</b> of the continent's consumer-auto velocity.</p>
+    <div class="dd-grid" style="margin-top:6px">
+      <div class="chart-canvas-wrap" style="height:300px"><canvas id="modelBar"></canvas></div>
+      <div>
+        <img src="analysis/deep-dives/north-american-consumer-auto/granular/charts/granularity_pyramid.png" alt="Granularity frontier" style="width:100%;border-radius:10px;border:1px solid var(--card-border)">
+        <p class="muted" style="font-size:.82rem;margin-top:8px">The public-data wall sits at model-year. Below it (trim/VIN) only DMV, OEM telemetry, or insurer telematics can see. <a href="analysis/deep-dives/north-american-consumer-auto/GRANULARITY_FRONTIER.md" style="color:var(--road)">Read the frontier analysis →</a></p>
+      </div>
+    </div>
   </div>
 </div></section>
 
@@ -207,6 +215,12 @@ const DD=[
   {t:"Compact car",vmt:428,pm:599},{t:"Pickup — full-size",vmt:314,pm:471},
   {t:"Minivan / Van",vmt:200,pm:420},{t:"Pickup — mid-size",vmt:114,pm:171},
   {t:"Motorcycle",vmt:29,pm:32},
+];
+const MODEL_TOP=[
+  {m:"Ford F-150",ahv:12.42,c:"#4C78A8"},{m:"Honda CR-V",ahv:11.19,c:"#F58518"},
+  {m:"Toyota RAV4",ahv:10.80,c:"#F58518"},{m:"Toyota Camry",ahv:10.30,c:"#54A24B"},
+  {m:"Chevy Silverado",ahv:9.49,c:"#4C78A8"},{m:"Honda Accord",ahv:8.90,c:"#54A24B"},
+  {m:"Toyota Corolla",ahv:8.26,c:"#B279A2"},{m:"Honda Civic",ahv:7.89,c:"#B279A2"},
 ];
 const INSIGHTS=[
   {i:"🐢",t:"The average human moves at <b>~0.5 mph</b> — the median human right now is doing <b>0 mph</b>, sitting still."},
@@ -260,6 +274,10 @@ function makeCharts(){
       {label:"Passenger-miles (B)",data:DD.map(d=>d.pm),backgroundColor:"#F58518"}]},
     options:{indexAxis:"y",plugins:{legend:{position:"bottom",labels:{font:{size:11}}}},
       scales:{x:{title:{display:true,text:"Billions of miles / yr"},grid:{color:"#1e293b"}},y:{grid:{display:false}}},maintainAspectRatio:false}});
+  new Chart(document.getElementById("modelBar"),{type:"bar",
+    data:{labels:MODEL_TOP.map(d=>d.m),datasets:[{label:"AHV (M person-mph)",data:MODEL_TOP.map(d=>d.ahv),backgroundColor:MODEL_TOP.map(d=>d.c)}]},
+    options:{indexAxis:"y",plugins:{legend:{display:false},title:{display:true,text:"Top models by AHV (US personal)",color:"#e6e8ee"}},
+      scales:{x:{title:{display:true,text:"million person-mph"},grid:{color:"#1e293b"}},y:{grid:{display:false}}},maintainAspectRatio:false}});
 }
 
 // reveal + nav + counters on load

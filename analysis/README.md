@@ -34,6 +34,12 @@ See the full [**Big Number report**](aggregate/BIG_NUMBER.md).
   (SUV/sedan/compact/pickup/van/motorcycle). ~2.85T vehicle-miles → ~4.51T
   passenger-miles → **AHV ~515M person-mph** (≈ all of global aviation). *Subset
   of Road — excluded from the Big Number total.*
+  - [**Granular Decomposition**](deep-dives/north-american-consumer-auto/granular/REPORT.md)
+    — type → company → make → model → model-year; top models by AHV, Ford F-150
+    model-year drill (`tools/granular_rollup.py`).
+  - [**The Granularity Frontier**](deep-dives/north-american-consumer-auto/GRANULARITY_FRONTIER.md)
+    — meta-analysis: how deep public data reaches (L1–L6), the paid/proprietary
+    wall, and the new research capabilities & needs this unveils.
 
 ## Capsules by Mode
 
@@ -57,3 +63,4 @@ See the full [**Big Number report**](aggregate/BIG_NUMBER.md).
 |-----|------|-------|--------|
 | 1 | 2026-07-20 | Flow lens, top 5 modes | First Big Number (AHV ≈ 3.86B person-mph) |
 | 2 | 2026-07-20 | NA Consumer Auto deep dive + Off-Earth + dashboard | Deep dive (~515M p-mph), GitHub Pages site |
+| 3 | 2026-07-20 | Granularity experiment (auto: type→company→make→model→year) | VIO×mileage-curve engine, granular tree (27.3% coverage), Granularity Frontier report |

@@ -87,6 +87,17 @@ human road travel on Earth**, from a region with ~6% of world population. This i
 an independent sanity-check on the global road residual (it's the right order of
 magnitude) and a vivid illustration of North America's car-centricity.
 
+## Going deeper — the granularity experiment
+
+We pushed this deep dive all the way down the hierarchy — **type → company → make
+→ model → model-year → (trim/VIN)** — to test how far public data reaches. See
+the **[Granular Decomposition](granular/REPORT.md)** (top models by AHV, the Ford
+F-150 model-year drill) and the meta-analysis **[The Granularity
+Frontier](GRANULARITY_FRONTIER.md)**. Headlines: the top-20 models cover just
+**27.3%** of US personal VMT (a long tail of 300+); occupancy makes the **CR-V and
+RAV4 outrank the Camry and Silverado** by AHV; and the **F-150 alone ≈ 2.2%** of
+North America's entire consumer-auto velocity.
+
 ## Key Findings
 
 1. **NA private cars ≈ all of global aviation** in AHV (~515M vs ~638M person-mph).

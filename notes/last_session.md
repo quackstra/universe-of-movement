@@ -1,39 +1,49 @@
-# Last Session Notes — 2026-07-20 (Run 2)
+# Last Session Notes — 2026-07-20 (Run 3)
 
-## Capsules Produced (Run 2): 1 deep dive + 1 mode capsule + dashboard
+## Focus: granularity experiment — how deep can we go in NA consumer auto?
 
-- **Deep Dive — North American Consumer Auto** (star deliverable)
-- **Off-Earth** mode capsule (astronauts)
-- **index.html** interactive dashboard (GitHub Pages)
+Deliberate depth test (per Ferg): drill the North American consumer-auto deep dive
+down the full hierarchy **type → company → make → model → model-year → (trim/VIN)**
+to unveil new research capabilities and data needs for the Universe of Research.
 
-## Key Findings (Run 2)
-- **NA Consumer Auto**: ~2.85T personal vehicle-miles/yr (US+CA+MX, non-commercial/
-  non-government) → ~4.51T passenger-miles (occ 1.58) → **AHV ~515M person-mph** —
-  nearly equal to ALL of global commercial aviation (638M).
-- Vehicle-type split (by VMT): **SUV/Crossover 40%** (now the largest), sedan 22%,
-  compact 15%, full pickup 11%, van 7%, mid pickup 4%, motorcycle 1%.
-- Occupancy reshuffles ranking in passenger-miles: vans (2.1) and SUVs (1.7) gain;
-  cars (1.4) lose. US = 90% of NA personal driving.
-- NA personal cars = ~19.6% of ALL global road pkm from ~6% of world population —
-  validates the global road residual and North America's car-centricity.
-- **Off-Earth**: ~10 humans in orbit at ~17,150 mph = fastest humans alive, but
-  AHV ~0.17M person-mph (0.004%) — the inverse of "ubiquity beats speed".
+## What was built
+- **Granular tree** (`analysis/.../granular/data.json`) — 20 models across 7 types,
+  grounded in **S&P DMV VIO shares** (F-150 3.7%, Silverado 2.7%, Camry 2.3%,
+  Accord/CR-V 2.0%) × 286M US VIO.
+- **New capability — VIO × mileage-age-curve engine** (`tools/granular_rollup.py`):
+  personal_VMT = VIO × personal_share × annual_miles; rolls up model→make→company→
+  type→total and reconciles to the deep-dive target.
+- **F-150 model-year drill** (survival curve × age-mileage curve).
+- **GRANULARITY_FRONTIER.md** — the meta-deliverable: L1–L6 levels, data source +
+  confidence + cost per level, the public-data wall at L5/L6, new capabilities/needs.
+- Charts: top models by AHV, F-150 by model-year, the granularity pyramid.
+- Dashboard: added a granularity section (top-models chart + pyramid + frontier link).
 
-## Big Number (unchanged, deep dive excluded to avoid double-count)
-- **AHV ≈ 3.859B person-mph** · v̄ ≈ 0.476 mph · odometer ≈ 33.8T person-mi/yr.
-- Off-Earth added as mode #6 (negligible). Deep dive is a Road subset — hyphenated
-  slug keeps it out of tools/ahv.py total.
+## Key findings
+- **Long tail dominates**: top-20 models = only **27.3%** of US personal VMT (300+
+  tail models are the rest). Granularity has steep diminishing returns for the
+  aggregate, but is essential for per-model questions.
+- **Occupancy reshuffles ranking**: by AHV, **CR-V & RAV4 outrank Camry & Silverado**
+  (SUV occupancy 1.7 > sedan 1.4). Biggest-by-sales ≠ biggest-by-human-velocity.
+- **Personal/commercial split becomes decisive at model level**: F-150 fleet AHV
+  ~20.2M vs consumer ~11.5M (43% haircut) — invisible in DMV counts.
+- **One model ≈ 2.2%** of the whole NA consumer-auto AHV (F-150).
+- **Brand ≠ volume for velocity**: Toyota+Honda lead consumer AHV vs GM+Ford leading
+  sales (truck vs passenger skew). [tree is partial — GM/Ford understated.]
 
-## Data anchored (Run 2)
-- FHWA VM-1 2023 (total VMT 3.247T; light-duty 2.879T), MV-1 (284.6M regs, 4.67M
-  government), NHTS 2022 occupancy (1.5 blended; car 1.4/SUV 1.7/van 2.1), AFDC
-  fleet mix, NHTSA motorcycle 2023 (~20B mi), StatCan Canadian Vehicle Survey,
-  CEIC Mexico VKT.
+## The frontier (new needs unveiled)
+- First hard **paywall**: L4–L5 need a paid VIO dataset (S&P/Experian/Polk).
+- **Telematics/connected-car** is the only path to true per-model/per-trim VMT.
+- **Per-model personal-vs-commercial splits** = dominant error below brand level.
+- **Model-level Canada/Mexico** data too thin — granular tree is US-only.
+- Reusable pattern for Universe of Research: map the public-data ceiling + price
+  the datasets that lower it; state precisely what can't be known.
 
-## Unfinished / deferred
-- Snapshot lens still not built.
-- Historic reconstruction (pre-rail → jet age) not started.
-- Micromobility, vertical/conveyed modes not yet measured (double-count care needed
-  for e-bikes vs road two-wheelers).
-- Road global capsule confidence not yet formally upgraded (deep dive gives the
-  method; apply US/CA/MX + extend to other regions in Run 3).
+## Big Number unchanged
+- AHV ≈ 3.859B person-mph. Granular tree (hyphenated slug) excluded from total.
+
+## Deferred / next
+- Buy/ingest a VIO-by-model dataset to convert L4–L5 to 🟢 and close the 73% tail.
+- Extend granular method to another region (validate reusability).
+- Return to refining aggregates by region (Ferg's stated next phase).
+- Historic reconstruction + snapshot lens still outstanding from Run 1–2.

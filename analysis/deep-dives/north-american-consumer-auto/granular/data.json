@@ -1,0 +1,79 @@
+{
+  "title": "North American Consumer Auto — Granular Tree (type → company → make → model → year)",
+  "category": "na-consumer-auto-granular",
+  "lens": "flow",
+  "scope": "US personal light vehicles (US = ~90% of the North American consumer-auto deep dive). Model-level Canada/Mexico data is too thin to decompose — itself a frontier finding.",
+  "last_updated": "2026-07-20",
+  "method": "Bottom-up: personal_VMT(model) = VIO(model) × personal_share(model) × annual_miles(model). VIO grounded in S&P Global Mobility DMV shares (Q2 2025) applied to 286M US VIO. See workings/methodology.md.",
+  "constants": { "us_vio": 2.86e8, "us_personal_vmt_target": 2.56e12, "hours_per_year": 8760 },
+  "types": [
+    { "type": "Full-size pickup", "occupancy": 1.5, "oems": [
+      { "company": "Ford", "make": "Ford", "models": [
+        { "model": "F-150", "vio_m": 10.6, "vio_share_pct": 3.7, "personal_share": 0.57, "annual_miles": 12000, "conf": "high",
+          "model_years": [
+            { "cohort": "2021-2025", "age": "0-4",  "vio_m": 3.9, "annual_miles": 13000 },
+            { "cohort": "2016-2020", "age": "5-9",  "vio_m": 3.2, "annual_miles": 12000 },
+            { "cohort": "2011-2015", "age": "10-14","vio_m": 2.0, "annual_miles": 9500 },
+            { "cohort": "2006-2010", "age": "15-19","vio_m": 1.1, "annual_miles": 7000 },
+            { "cohort": "2005-older","age": "20+",  "vio_m": 0.4, "annual_miles": 5500 }
+          ] } ] },
+      { "company": "GM", "make": "Chevrolet", "models": [
+        { "model": "Silverado 1500", "vio_m": 7.7, "vio_share_pct": 2.7, "personal_share": 0.60, "annual_miles": 12000, "conf": "high" } ] },
+      { "company": "GM", "make": "GMC", "models": [
+        { "model": "Sierra 1500", "vio_m": 3.5, "vio_share_pct": 1.2, "personal_share": 0.58, "annual_miles": 12000, "conf": "medium" } ] },
+      { "company": "Stellantis", "make": "Ram", "models": [
+        { "model": "Ram 1500", "vio_m": 5.0, "vio_share_pct": 1.75, "personal_share": 0.62, "annual_miles": 12000, "conf": "medium" } ] }
+    ] },
+    { "type": "Mid-size pickup", "occupancy": 1.5, "oems": [
+      { "company": "Toyota", "make": "Toyota", "models": [
+        { "model": "Tacoma", "vio_m": 3.0, "vio_share_pct": 1.05, "personal_share": 0.80, "annual_miles": 11000, "conf": "medium" } ] },
+      { "company": "Ford", "make": "Ford", "models": [
+        { "model": "Ranger", "vio_m": 1.2, "vio_share_pct": 0.42, "personal_share": 0.70, "annual_miles": 11500, "conf": "low" } ] }
+    ] },
+    { "type": "SUV / Crossover", "occupancy": 1.7, "oems": [
+      { "company": "Toyota", "make": "Toyota", "models": [
+        { "model": "RAV4", "vio_m": 5.5, "vio_share_pct": 1.92, "personal_share": 0.92, "annual_miles": 11000, "conf": "high" } ] },
+      { "company": "Honda", "make": "Honda", "models": [
+        { "model": "CR-V", "vio_m": 5.7, "vio_share_pct": 2.0, "personal_share": 0.92, "annual_miles": 11000, "conf": "high" } ] },
+      { "company": "GM", "make": "Chevrolet", "models": [
+        { "model": "Equinox", "vio_m": 3.0, "vio_share_pct": 1.05, "personal_share": 0.88, "annual_miles": 11000, "conf": "medium" } ] },
+      { "company": "Ford", "make": "Ford", "models": [
+        { "model": "Explorer", "vio_m": 3.2, "vio_share_pct": 1.12, "personal_share": 0.85, "annual_miles": 11500, "conf": "medium" } ] },
+      { "company": "Tesla", "make": "Tesla", "models": [
+        { "model": "Model Y", "vio_m": 1.6, "vio_share_pct": 0.56, "personal_share": 0.95, "annual_miles": 11500, "conf": "medium" } ] }
+    ] },
+    { "type": "Sedan (mid/full-size car)", "occupancy": 1.4, "oems": [
+      { "company": "Toyota", "make": "Toyota", "models": [
+        { "model": "Camry", "vio_m": 6.6, "vio_share_pct": 2.3, "personal_share": 0.93, "annual_miles": 10500, "conf": "high" } ] },
+      { "company": "Honda", "make": "Honda", "models": [
+        { "model": "Accord", "vio_m": 5.7, "vio_share_pct": 2.0, "personal_share": 0.93, "annual_miles": 10500, "conf": "high" } ] },
+      { "company": "Tesla", "make": "Tesla", "models": [
+        { "model": "Model 3", "vio_m": 1.3, "vio_share_pct": 0.45, "personal_share": 0.95, "annual_miles": 11000, "conf": "medium" } ] }
+    ] },
+    { "type": "Compact / subcompact car", "occupancy": 1.4, "oems": [
+      { "company": "Toyota", "make": "Toyota", "models": [
+        { "model": "Corolla", "vio_m": 5.5, "vio_share_pct": 1.92, "personal_share": 0.94, "annual_miles": 10000, "conf": "high" } ] },
+      { "company": "Honda", "make": "Honda", "models": [
+        { "model": "Civic", "vio_m": 5.0, "vio_share_pct": 1.75, "personal_share": 0.94, "annual_miles": 10500, "conf": "high" } ] }
+    ] },
+    { "type": "Minivan / Van", "occupancy": 2.1, "oems": [
+      { "company": "Toyota", "make": "Toyota", "models": [
+        { "model": "Sienna", "vio_m": 1.6, "vio_share_pct": 0.56, "personal_share": 0.90, "annual_miles": 11000, "conf": "medium" } ] },
+      { "company": "Honda", "make": "Honda", "models": [
+        { "model": "Odyssey", "vio_m": 1.6, "vio_share_pct": 0.56, "personal_share": 0.90, "annual_miles": 11000, "conf": "medium" } ] }
+    ] },
+    { "type": "Motorcycle", "occupancy": 1.1, "oems": [
+      { "company": "Harley-Davidson", "make": "Harley-Davidson", "models": [
+        { "model": "Harley-Davidson (all)", "vio_m": 3.5, "vio_share_pct": 1.22, "personal_share": 0.98, "annual_miles": 3000, "conf": "low" } ] },
+      { "company": "Honda", "make": "Honda", "models": [
+        { "model": "Honda motorcycles (all)", "vio_m": 2.0, "vio_share_pct": 0.70, "personal_share": 0.97, "annual_miles": 3000, "conf": "low" } ] }
+    ] }
+  ],
+  "sources": [
+    { "id": 1, "citation": "Ford-Trucks / S&P DMV data — F-150 3.7%, Silverado 2.7%, Camry 2.3%, Accord 2.0%, CR-V 2.0% of US vehicles on road (Q2 2025)", "url": "https://www.ford-trucks.com/how-tos/slideshows/top-10-most-common-vehicles-on-american-roads-999707", "accessed": "2026-07-20" },
+    { "id": 2, "citation": "S&P Global Mobility — 286M US VIO, average age 12.6 years (2024)", "url": "https://www.spglobal.com/mobility/en/research-analysis/average-age-vehicles-united-states-2024.html", "accessed": "2026-07-20" },
+    { "id": 3, "citation": "GoodCarBadCar — 2024 US model sales rankings", "url": "https://www.goodcarbadcar.net/2024-u-s-auto-sales-figures-by-model-all-vehicle-ranked/", "accessed": "2026-07-20" },
+    { "id": 4, "citation": "US DOE / NHTS 2017 — annual miles by vehicle age (1-5yr >12k; 9+yr ~7.8k; fleet avg ~10.2k)", "url": "https://nhts.ornl.gov/assets/2017BESTMILE_Documentation.pdf", "accessed": "2026-07-20" },
+    { "id": 5, "citation": "Ford — 34M F-Series sold cumulatively since 1977", "url": "https://www.ford-trucks.com/articles/48-years-and-counting-ford-f-series-once-again-americas-best-selling-truck/", "accessed": "2026-07-20" }
+  ]
+}
