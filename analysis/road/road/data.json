@@ -1,0 +1,36 @@
+{
+  "mode": "Road",
+  "category": "road",
+  "lens": "flow",
+  "last_updated": "2026-07-20",
+  "current": {
+    "annual_pkm":        { "value": 37.0e12, "unit": "passenger-km/yr", "source": "Residual of ITF global passenger activity (~50-54T) minus air/rail/water; cars + 2/3-wheelers + buses", "url": "https://www.itf-oecd.org/transport-demand-set-triple-sector-faces-potential-disruptions", "confidence": "medium" },
+    "avg_speed_mph":     { "value": 30, "source": "Blended urban+intercity incl. congestion", "confidence": "low" },
+    "ahv_person_mph":    { "value": 2.625e9, "derivation": "37.0e12 * 0.621371 / 8760", "confidence": "medium" },
+    "people_in_motion_avg": { "value": 8.75e7, "derivation": "2.625e9 / 30", "confidence": "low" },
+    "population_share_pct": { "value": 1.08, "derivation": "8.75e7 / 8.1e9 * 100", "confidence": "low" }
+  },
+  "historic": [
+    { "year": 2015, "annual_pkm": 32.0e12, "ahv_person_mph": 2.27e9, "source": "ITF Transport Outlook 2019 (44T all-mode 2015 baseline)", "confidence": "medium" },
+    { "year": 2019, "annual_pkm": 38.0e12, "ahv_person_mph": 2.70e9, "source": "ITF trend", "confidence": "medium" },
+    { "year": 2020, "annual_pkm": 30.0e12, "ahv_person_mph": 2.13e9, "source": "COVID mobility drop (~-20%)", "confidence": "low" },
+    { "year": 2024, "annual_pkm": 37.0e12, "ahv_person_mph": 2.625e9, "source": "Residual estimate", "confidence": "medium" }
+  ],
+  "projections": {
+    "baseline":      [ { "year": 2030, "annual_pkm": 41.7e12, "ahv_person_mph": 2.957e9 }, { "year": 2050, "annual_pkm": 61.9e12, "ahv_person_mph": 4.390e9 } ],
+    "high_mobility": [ { "year": 2030, "annual_pkm": 45.5e12, "ahv_person_mph": 3.227e9 }, { "year": 2050, "annual_pkm": 90.9e12, "ahv_person_mph": 6.447e9 } ],
+    "substitution":  [ { "year": 2030, "annual_pkm": 36.3e12, "ahv_person_mph": 2.574e9 }, { "year": 2050, "annual_pkm": 34.2e12, "ahv_person_mph": 2.425e9 } ]
+  },
+  "subcategories": [
+    { "name": "Cars — sedans",        "share_pct": 30, "avg_speed_mph": 32 },
+    { "name": "Cars — SUVs/crossovers","share_pct": 22, "avg_speed_mph": 32 },
+    { "name": "Cars — pickups/light",  "share_pct": 10, "avg_speed_mph": 32 },
+    { "name": "Two/three-wheelers",    "share_pct": 20, "avg_speed_mph": 22 },
+    { "name": "Buses & coaches",       "share_pct": 16, "avg_speed_mph": 28 },
+    { "name": "Trucking (driver only)","share_pct": 2,  "avg_speed_mph": 40 }
+  ],
+  "sources": [
+    { "id": 1, "citation": "ITF Transport Outlook 2019 — 44T pkm (2015) to 122T (2050)", "url": "https://www.itf-oecd.org/transport-demand-set-triple-sector-faces-potential-disruptions", "accessed": "2026-07-20" },
+    { "id": 2, "citation": "ITF — Passenger and freight transport trends compared around the world", "url": "https://www.itf-oecd.org/passenger-freight-transport-trends", "accessed": "2026-07-20" }
+  ]
+}

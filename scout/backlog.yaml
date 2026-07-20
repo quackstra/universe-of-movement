@@ -1,0 +1,92 @@
+generated_from: config.yaml
+categories:
+- slug: air
+  name: Air (all)
+  sector: air
+  priority: 1
+  estimated_scale: ~9 trillion pkm/yr
+  status: pending
+- slug: rail
+  name: Rail (all)
+  sector: rail
+  priority: 1
+  estimated_scale: ~3.8 trillion pkm/yr
+  status: pending
+- slug: road
+  name: Road (all)
+  sector: road
+  priority: 1
+  estimated_scale: tens of trillions pkm/yr
+  status: pending
+- slug: active
+  name: Active travel (walk/cycle)
+  sector: active
+  priority: 2
+  estimated_scale: high count, low speed
+  status: pending
+- slug: road-cars
+  name: "Cars \u2014 subcategory split"
+  sector: road
+  priority: 2
+  estimated_scale: largest single share
+  status: pending
+- slug: water
+  name: Water (all)
+  sector: water
+  priority: 2
+  estimated_scale: hundreds of billions pkm/yr
+  status: pending
+- slug: air-haul
+  name: Commercial haul split
+  sector: air
+  priority: 3
+  estimated_scale: short vs long
+  status: pending
+- slug: rail-hsr
+  name: High-speed rail
+  sector: rail
+  priority: 3
+  estimated_scale: China/Japan/EU
+  status: pending
+- slug: road-2w
+  name: Two/three-wheelers
+  sector: road
+  priority: 3
+  estimated_scale: huge in Asia/Africa
+  status: pending
+- slug: road-bus
+  name: Buses & coaches
+  sector: road
+  priority: 3
+  estimated_scale: large in developing world
+  status: pending
+- slug: micromobility
+  name: Micromobility (e-bike/scooter)
+  sector: micromobility
+  priority: 4
+  estimated_scale: emerging
+  status: pending
+- slug: water-cruise
+  name: Cruise
+  sector: water
+  priority: 4
+  estimated_scale: ~35M pax/yr
+  status: pending
+- slug: water-naval
+  name: Naval / military crew
+  sector: water
+  priority: 4
+  estimated_scale: carrier/sub/surface
+  status: pending
+- slug: offearth
+  name: Off-Earth (spaceflight)
+  sector: offearth
+  priority: 5
+  estimated_scale: tiny count, extreme speed
+  status: pending
+- slug: vertical
+  name: Vertical & conveyed
+  sector: vertical
+  priority: 5
+  estimated_scale: negligible AHV
+  status: pending

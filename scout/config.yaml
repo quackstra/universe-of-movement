@@ -1,0 +1,101 @@
+# Universe of Movement — Scout Configuration
+# Data sources and mode definitions for aggregate-speed discovery
+
+sources:
+  itf:
+    description: "International Transport Forum (OECD) — the 'BIS' of transport"
+    base_url: "https://www.itf-oecd.org"
+    datasets:
+      - "Transport Outlook (global passenger-km by mode, projections to 2050)"
+      - "Annual transport trends compared across the globe"
+    update_frequency: "annual"
+    confidence: "high"
+
+  iata:
+    description: "International Air Transport Association"
+    base_url: "https://www.iata.org"
+    datasets:
+      - "Air Passenger Market Analysis (monthly RPK)"
+      - "Annual global demand release (full-year RPK)"
+    update_frequency: "monthly"
+    confidence: "high"
+
+  icao:
+    description: "International Civil Aviation Organization"
+    datasets: ["Annual passenger traffic (with ACI)"]
+    update_frequency: "annual"
+    confidence: "high"
+
+  uic:
+    description: "International Union of Railways"
+    base_url: "https://uic.org"
+    datasets: ["Railway statistics (passenger-km by country/region)"]
+    update_frequency: "annual"
+    confidence: "high"
+
+  iea:
+    description: "International Energy Agency — mobility & transport"
+    datasets: ["Passenger-km by mode", "Vehicle stock", "Mobility indicators"]
+    update_frequency: "annual"
+    confidence: "high"
+
+  clia:
+    description: "Cruise Lines International Association"
+    datasets: ["State of the Cruise Industry (annual ocean passengers)"]
+    update_frequency: "annual"
+    confidence: "high"
+
+  interferry_ics:
+    description: "Interferry (ferry) + International Chamber of Shipping (seafarers)"
+    datasets: ["Ferry industry facts", "Seafarer workforce estimates"]
+    update_frequency: "annual"
+    confidence: "medium"
+
+  national_surveys:
+    description: "National travel & time-use surveys (occupancy, trip rates)"
+    sources: ["US NHTS", "US ATUS", "UK NTS", "EU mobility surveys"]
+    update_frequency: "periodic"
+    confidence: "high"
+
+  worldbank_un:
+    description: "World Bank / UN — population, urbanisation, rail indicators"
+    datasets: ["World population", "Railways passengers carried (pkm)"]
+    update_frequency: "annual"
+    confidence: "high"
+
+# Mode definitions — each becomes a research track
+categories:
+  road:
+    - { name: "Road (all)",              slug: "road",         priority: 1, estimated_scale: "tens of trillions pkm/yr" }
+    - { name: "Cars — subcategory split", slug: "road-cars",    priority: 2, estimated_scale: "largest single share" }
+    - { name: "Two/three-wheelers",       slug: "road-2w",      priority: 3, estimated_scale: "huge in Asia/Africa" }
+    - { name: "Buses & coaches",          slug: "road-bus",     priority: 3, estimated_scale: "large in developing world" }
+  air:
+    - { name: "Air (all)",               slug: "air",          priority: 1, estimated_scale: "~9 trillion pkm/yr" }
+    - { name: "Commercial haul split",    slug: "air-haul",     priority: 3, estimated_scale: "short vs long" }
+  rail:
+    - { name: "Rail (all)",              slug: "rail",         priority: 1, estimated_scale: "~3.8 trillion pkm/yr" }
+    - { name: "High-speed rail",          slug: "rail-hsr",     priority: 3, estimated_scale: "China/Japan/EU" }
+  water:
+    - { name: "Water (all)",             slug: "water",        priority: 2, estimated_scale: "hundreds of billions pkm/yr" }
+    - { name: "Naval / military crew",    slug: "water-naval",  priority: 4, estimated_scale: "carrier/sub/surface" }
+    - { name: "Cruise",                   slug: "water-cruise", priority: 4, estimated_scale: "~35M pax/yr" }
+  active:
+    - { name: "Active travel (walk/cycle)", slug: "active",     priority: 2, estimated_scale: "high count, low speed" }
+  micromobility:
+    - { name: "Micromobility (e-bike/scooter)", slug: "micromobility", priority: 4, estimated_scale: "emerging" }
+  vertical:
+    - { name: "Vertical & conveyed",     slug: "vertical",     priority: 5, estimated_scale: "negligible AHV" }
+  offearth:
+    - { name: "Off-Earth (spaceflight)", slug: "offearth",     priority: 5, estimated_scale: "tiny count, extreme speed" }
+
+# Scoring weights (inside-out: biggest AHV contribution today first)
+scoring:
+  current_scale_weight: 0.50
+  data_availability_weight: 0.25
+  data_quality_weight: 0.15
+  uniqueness_weight: 0.10
+
+output:
+  backlog_file: "backlog.yaml"
+  max_categories: 30

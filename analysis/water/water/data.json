@@ -1,0 +1,37 @@
+{
+  "mode": "Water",
+  "category": "water",
+  "lens": "flow",
+  "last_updated": "2026-07-20",
+  "current": {
+    "annual_pkm":        { "value": 0.2e12, "unit": "passenger-km/yr", "source": "Ferries (~4.27B pax/yr × ~20km) + cruise (34.6M pax/yr) + recreational/naval/cargo crew", "url": "https://interferry.com/ferry-industry-facts/", "confidence": "low" },
+    "avg_speed_mph":     { "value": 18, "source": "Blend: ferries ~15, cruise ~20 knots", "confidence": "low" },
+    "ahv_person_mph":    { "value": 1.42e7, "derivation": "0.2e12 * 0.621371 / 8760", "confidence": "low" },
+    "people_in_motion_avg": { "value": 7.9e5, "derivation": "1.42e7 / 18", "confidence": "low" },
+    "population_share_pct": { "value": 0.0098, "derivation": "7.9e5 / 8.1e9 * 100", "confidence": "low" }
+  },
+  "historic": [
+    { "year": 2015, "annual_pkm": 0.18e12, "ahv_person_mph": 1.28e7, "source": "Interferry/CLIA trend", "confidence": "low" },
+    { "year": 2019, "annual_pkm": 0.21e12, "ahv_person_mph": 1.49e7, "source": "Pre-COVID peak", "confidence": "low" },
+    { "year": 2020, "annual_pkm": 0.09e12, "ahv_person_mph": 6.4e6,  "source": "Cruise shutdown", "confidence": "low" },
+    { "year": 2024, "annual_pkm": 0.2e12,  "ahv_person_mph": 1.42e7, "source": "Recovery", "confidence": "low" }
+  ],
+  "projections": {
+    "baseline":      [ { "year": 2030, "annual_pkm": 0.225e12, "ahv_person_mph": 1.60e7 }, { "year": 2050, "annual_pkm": 0.335e12, "ahv_person_mph": 2.38e7 } ],
+    "high_mobility": [ { "year": 2030, "annual_pkm": 0.239e12, "ahv_person_mph": 1.69e7 }, { "year": 2050, "annual_pkm": 0.432e12, "ahv_person_mph": 3.06e7 } ],
+    "substitution":  [ { "year": 2030, "annual_pkm": 0.212e12, "ahv_person_mph": 1.50e7 }, { "year": 2050, "annual_pkm": 0.259e12, "ahv_person_mph": 1.84e7 } ]
+  },
+  "subcategories": [
+    { "name": "Ferries",                "share_pct": 42, "avg_speed_mph": 16 },
+    { "name": "Cruise",                 "share_pct": 40, "avg_speed_mph": 22 },
+    { "name": "Cargo shipping (crew)",  "share_pct": 8,  "avg_speed_mph": 17 },
+    { "name": "Recreational boating",   "share_pct": 6,  "avg_speed_mph": 12 },
+    { "name": "Naval / military (crew)","share_pct": 3,  "avg_speed_mph": 20 },
+    { "name": "Fishing (crew)",         "share_pct": 1,  "avg_speed_mph": 10 }
+  ],
+  "sources": [
+    { "id": 1, "citation": "Interferry — Ferry Industry Facts (~4.27B passengers/yr)", "url": "https://interferry.com/ferry-industry-facts/", "accessed": "2026-07-20" },
+    { "id": 2, "citation": "CLIA — State of the Cruise Industry (34.6M ocean pax 2024)", "url": "https://cruising.org/sites/default/files/2025-07/State%20of%20the%20Cruise%20Industry%20Report%202025.pdf", "accessed": "2026-07-20" },
+    { "id": 3, "citation": "ICS — ~1.89M merchant seafarers", "url": "https://www.ics-shipping.org/shipping-fact/shipping-and-world-trade-global-supply-and-demand-for-seafarers/", "accessed": "2026-07-20" }
+  ]
+}

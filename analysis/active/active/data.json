@@ -1,0 +1,32 @@
+{
+  "mode": "Active",
+  "category": "active",
+  "lens": "flow",
+  "last_updated": "2026-07-20",
+  "current": {
+    "annual_pkm":        { "value": 4.4e12, "unit": "passenger-km/yr", "source": "Purposeful walking (~1.2 km/person/day) + cycling (~0.3 km/person/day) × 8.1B × 365; EXCLUDES ambient movement", "url": "https://www.who.int/news-room/fact-sheets/detail/physical-activity", "confidence": "low" },
+    "avg_speed_mph":     { "value": 3.4, "source": "Walking ~3, cycling ~10, blended", "confidence": "low" },
+    "ahv_person_mph":    { "value": 3.12e8, "derivation": "4.4e12 * 0.621371 / 8760", "confidence": "low" },
+    "people_in_motion_avg": { "value": 9.17e7, "derivation": "3.12e8 / 3.4", "confidence": "low" },
+    "population_share_pct": { "value": 1.13, "derivation": "9.17e7 / 8.1e9 * 100", "confidence": "low" }
+  },
+  "historic": [
+    { "year": 2015, "annual_pkm": 4.2e12, "ahv_person_mph": 2.98e8, "source": "Population-scaled estimate", "confidence": "low" },
+    { "year": 2019, "annual_pkm": 4.3e12, "ahv_person_mph": 3.05e8, "source": "Population-scaled estimate", "confidence": "low" },
+    { "year": 2020, "annual_pkm": 3.9e12, "ahv_person_mph": 2.77e8, "source": "Lockdowns cut trip-based walking", "confidence": "low" },
+    { "year": 2024, "annual_pkm": 4.4e12, "ahv_person_mph": 3.12e8, "source": "Population-scaled estimate", "confidence": "low" }
+  ],
+  "projections": {
+    "baseline":      [ { "year": 2030, "annual_pkm": 4.67e12, "ahv_person_mph": 3.31e8 }, { "year": 2050, "annual_pkm": 5.70e12, "ahv_person_mph": 4.04e8 } ],
+    "high_mobility": [ { "year": 2030, "annual_pkm": 4.96e12, "ahv_person_mph": 3.52e8 }, { "year": 2050, "annual_pkm": 6.54e12, "ahv_person_mph": 4.64e8 } ],
+    "substitution":  [ { "year": 2030, "annual_pkm": 5.25e12, "ahv_person_mph": 3.72e8 }, { "year": 2050, "annual_pkm": 9.49e12, "ahv_person_mph": 6.73e8 } ]
+  },
+  "subcategories": [
+    { "name": "Walking (purposeful trips)", "share_pct": 78, "avg_speed_mph": 3.0 },
+    { "name": "Cycling",                    "share_pct": 20, "avg_speed_mph": 10 },
+    { "name": "Running / jogging",          "share_pct": 2,  "avg_speed_mph": 6 }
+  ],
+  "sources": [
+    { "id": 1, "citation": "WHO — Physical activity (walking prevalence context)", "url": "https://www.who.int/news-room/fact-sheets/detail/physical-activity", "accessed": "2026-07-20" }
+  ]
+}

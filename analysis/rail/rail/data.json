@@ -1,0 +1,34 @@
+{
+  "mode": "Rail",
+  "category": "rail",
+  "lens": "flow",
+  "last_updated": "2026-07-20",
+  "current": {
+    "annual_pkm":        { "value": 3.8e12, "unit": "passenger-km/yr", "source": "Global rail pkm 2023 (~3.82T, Asia-Pacific ~3.16T)", "url": "https://www.statista.com/statistics/263546/global-rail-passenger-activity-by-region/", "confidence": "medium" },
+    "avg_speed_mph":     { "value": 40, "source": "Blend: metro ~20, commuter ~30, HSR ~150", "confidence": "low" },
+    "ahv_person_mph":    { "value": 2.695e8, "derivation": "3.8e12 * 0.621371 / 8760", "confidence": "medium" },
+    "people_in_motion_avg": { "value": 6.74e6, "derivation": "2.695e8 / 40", "confidence": "low" },
+    "population_share_pct": { "value": 0.083, "derivation": "6.74e6 / 8.1e9 * 100", "confidence": "low" }
+  },
+  "historic": [
+    { "year": 2015, "annual_pkm": 3.2e12, "ahv_person_mph": 2.27e8, "source": "UIC/World Bank", "confidence": "medium" },
+    { "year": 2019, "annual_pkm": 3.9e12, "ahv_person_mph": 2.77e8, "source": "UIC 2019", "confidence": "medium" },
+    { "year": 2020, "annual_pkm": 2.2e12, "ahv_person_mph": 1.56e8, "source": "COVID (~-44%)", "confidence": "low" },
+    { "year": 2024, "annual_pkm": 3.8e12, "ahv_person_mph": 2.695e8, "source": "Statista/UIC 2023-24", "confidence": "medium" }
+  ],
+  "projections": {
+    "baseline":      [ { "year": 2030, "annual_pkm": 4.66e12, "ahv_person_mph": 3.30e8 }, { "year": 2050, "annual_pkm": 8.41e12, "ahv_person_mph": 5.96e8 } ],
+    "high_mobility": [ { "year": 2030, "annual_pkm": 5.23e12, "ahv_person_mph": 3.71e8 }, { "year": 2050, "annual_pkm": 13.87e12, "ahv_person_mph": 9.84e8 } ],
+    "substitution":  [ { "year": 2030, "annual_pkm": 4.39e12, "ahv_person_mph": 3.11e8 }, { "year": 2050, "annual_pkm": 6.53e12, "ahv_person_mph": 4.63e8 } ]
+  },
+  "subcategories": [
+    { "name": "Metro / subway / light rail", "share_pct": 30, "avg_speed_mph": 20 },
+    { "name": "Commuter / regional",         "share_pct": 33, "avg_speed_mph": 30 },
+    { "name": "Intercity conventional",      "share_pct": 22, "avg_speed_mph": 55 },
+    { "name": "High-speed rail",             "share_pct": 15, "avg_speed_mph": 150 }
+  ],
+  "sources": [
+    { "id": 1, "citation": "Statista — Global rail passenger activity by region (~3.82T pkm 2023)", "url": "https://www.statista.com/statistics/263546/global-rail-passenger-activity-by-region/", "accessed": "2026-07-20" },
+    { "id": 2, "citation": "UIC — Traffic trends among member companies 2023", "url": "https://uic.org/com/enews/article/traffic-trends-among-uic-member-companies-in-2023", "accessed": "2026-07-20" }
+  ]
+}
